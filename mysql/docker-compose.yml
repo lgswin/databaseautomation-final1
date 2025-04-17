@@ -13,10 +13,10 @@ services:
     volumes:
       - ./data/conf.d:/etc/mysql/conf.d
       - ./data/logs:/var/log/mysql
-      - /usr/local/var/mysql:/var/lib/mysql
-#     networks:
-#       - mysql-network
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./seed.sql:/docker-entrypoint-initdb.d/seed.sql
 
-# networks:
-#   mysql-network:
-#     driver: bridge
+volumes:
+  mysql_data:
+    driver: local
