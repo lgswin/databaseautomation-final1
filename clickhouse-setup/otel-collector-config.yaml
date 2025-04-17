@@ -1,4 +1,11 @@
 receivers:
+
+  mysql:
+    endpoint: mysql:3306
+    username: root
+    password: root
+    collection_interval: 10s
+    initial_delay: 10s
   tcplog/docker:
     listen_address: "0.0.0.0:2255"
     operators:
@@ -173,7 +180,7 @@ service:
       processors: [signozspanmetrics/cumulative, signozspanmetrics/delta, batch]
       exporters: [clickhousetraces]
     metrics:
-      receivers: [otlp]
+      receivers: [otlp, mysql]
       processors: [batch]
       exporters: [clickhousemetricswrite]
     metrics/generic:

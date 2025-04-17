@@ -7,12 +7,16 @@ services:
     container_name: mysql
     environment:
       MYSQL_DATABASE: 'project_db'
-#    We cannot set user as 'root' if mysql is below version of 5.x: https://github.com/docker-library/mysql/issues/129
-      MYSQL_ROOT_USER: 'root'
-      MYSQL_ROOT_PASSWORD: 'secret5555'
+      MYSQL_ROOT_PASSWORD: 'root'
     ports:
       - "3306:3306"
     volumes:
       - ./data/conf.d:/etc/mysql/conf.d
-      - ./data/logs:/logs
+      - ./data/logs:/var/log/mysql
       - /usr/local/var/mysql:/var/lib/mysql
+#     networks:
+#       - mysql-network
+
+# networks:
+#   mysql-network:
+#     driver: bridge
